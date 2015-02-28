@@ -1,3 +1,23 @@
-from django.db import models
+from django.db import models as m
+import random
 
-# Create your models here.
+
+RANDOM_ALLOWED_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+def random_string():
+    return ''.join(random.choice(RANDOM_ALLOWED_CHARS) for _ in range(36))
+
+
+class YoGroup(m.Model):
+    """a Yo Group. cb_code es callback_code"""
+    name = m.CharField(max_length=55)
+    api_token = m.SlugField(max_length=36)
+    passcode = m.SlugField(max_length=36, default=random_string)
+    cb_code = m.SlugField(max_length=36, default=random_string)
+
+
+class YoMember(m.Model):
+    group = m.ForeignKey(YoGroup, related_name='members')
+    username = m.CharField(max_length=55)
+    lat = m.IntegerField(null=True, blank=True)
+    lng = m.IntegerField(null=True, blank=True)
+    location_time = m.DateTimeField(null=True, blank=True)
