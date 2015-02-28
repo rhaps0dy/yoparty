@@ -16,7 +16,6 @@ def send_yo(username, api_token=None, link=None, location=None):
     requests.post("http://api.justyo.co/yo/", data=query)
 
 
-
 def create_or_join_group(request):
     """Website to create a yoparty group"""
     # Possible opcio de enviar un yo a usuaris perque s'agreguin
@@ -29,7 +28,7 @@ def yo_register(request):
     """Yo callback url that sends the link to the landing page"""
     if request.method != "GET" or "username" not in request.GET:
         raise PermissionDenied
-    send_yo(request.GET['username'], link="http://www.upf.edu/")
+    send_yo(request.GET['username'], link="http://81.4.122.176:8000/")
     return HttpResponse("OK")
 
 
