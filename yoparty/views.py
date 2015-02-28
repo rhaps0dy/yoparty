@@ -47,5 +47,5 @@ def yo_group(request, cb_code):
         return HttpResponse()
     if "location" in request.GET:
         print("location")
-    yoapi.send_yo(u.username, api_token=g.api_token)
+    yoapi.yo_all_in_group(g)
     return HttpResponse()

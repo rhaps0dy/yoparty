@@ -55,7 +55,5 @@ def create_group(group_name):
     g.save()
 
 
-def yo_all_in_group(cb_code):
-#    g = get_
-
-    requests.post("https://api.justyo.co/yoall/", data={"api_token": g.api_token})
+def yo_all_in_group(group):
+    requests.post("https://api.justyo.co/yoall/", data={"api_token": group.api_token})
