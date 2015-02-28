@@ -1,8 +1,11 @@
 from django.shortcuts import render
-from django.core.exceptions import PermissionDenied
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.conf import settings
+from django.shortcuts import get_object_or_404
+from django.core.urlresolvers import reverse
+
 from yoparty import yoapi
+from yoparty.models import YoGroup, YoMember
 
 
 def create_or_join_group(request):
@@ -19,15 +22,30 @@ def create_or_join_group(request):
     return render(request, "yoparty/create_or_join_group.html")
 
 
+def join_success_page(request, group):
+    return render(request, "yoparty/join_success.html", {'group': group})
+
+
 def yo_register(request):
     """Yo callback url that sends the link to the landing page"""
     if request.method != "GET" or "username" not in request.GET:
-        raise PermissionDenied
+        raise Http404
     yoapi.send_yo(request.GET['username'], link=settings.BASE_URL + "/")
-    return HttpResponse("OK")
+    return HttpResponse()
 
 
 def yo_group(request, cb_code):
     """Callback url for yo sent to any group. This receives yo's and locations, and sends back yo's and locations."""
-
-    return HttpResponse("OK")
+    if request.method != "GET" or "username" not in request.GET:
+        raise Http404
+    g = get_object_or_404(YoGroup, cb_code=cb_code)
+    u, created = YoMember.objects.get_or_create(group=g, username=request.GET["username"])
+    if created:
+        u.save()
+        yoapi.send_yo(u.username, api_token=g.api_token,
+                      link=settings.BASE_URL + reverse('join_success', kwargs={'group': g.name}))
+        return HttpResponse()
+    if "location" in request.GET:
+        print("location")
+    yoapi.send_yo(u.username, api_token=g.api_token)
+    return HttpResponse()

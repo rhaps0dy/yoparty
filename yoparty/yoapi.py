@@ -1,9 +1,11 @@
-import requests
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-from yoparty.models import YoGroup
 from django.core.urlresolvers import reverse
+
+import requests
 import re
+
+from yoparty.models import YoGroup
 
 
 GROUP_REGEX = r'^[A-Z0-9]+$'
