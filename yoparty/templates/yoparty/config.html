@@ -17,7 +17,7 @@
 <button id="deleteUser" class="{% if active_deleteUser %}active {% endif %}in5">EXIT GROUP</button>
 <form id="form" method="POST">
 	{% csrf_token %}
-	<input id="command" type="hidden"/> 
+	<input id="command-id" name="command" type="hidden"/>
 </form>
 </body>
 <script src="{% static 'yoparty/config.js' %}"></script>
