@@ -68,7 +68,8 @@ def yo_register(request):
 
 
 def loc_page(request, group):
-    return render(request, "yoparty/loc_page.html", {'group': group})
+    return render(request, "yoparty/messages.html", {'title': 'Yo, location.',
+                  'message': 'Somebody sent location in %s. Send your location to meet up with them!' % group})
 
 
 def yo_group(request, cb_code):
