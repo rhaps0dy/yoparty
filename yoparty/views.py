@@ -19,7 +19,7 @@ def create_or_join_group(request):
             yoapi.create_group(request.POST["group"])
         except yoapi.GroupCreationError as e:
             return render(request, "yoparty/create_or_join_group.html", {"error": str(e)})
-        return render(request, "yoparty/create_or_join_group.html", {"created": True})
+        return render(request, "yoparty/create_or_join_group.html", {"group": request.POST["group"]})
     return render(request, "yoparty/create_or_join_group.html")
 
 
