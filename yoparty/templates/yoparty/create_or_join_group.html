@@ -12,13 +12,14 @@
 {% if error %}	
 <p>Error: {{ error }}</p>
 {% endif %}
-{% if created %}
-<p>You have successfully joined to or created this group!</p>
+{% if group %}
+<p>You have successfully created the group {{ group }}.</p>
 {% endif %}
-<form method="POST">
+<form id="group" method="POST">
 	{% csrf_token %}
 	<input class="in1" type="text" name="group" placeholder="Group name"/>
 	<input class="in2" type="submit"/>
 </form>
 </body>
+<script src="{% static 'yoparty/yoparty.js' %}"></script>
 </html>
