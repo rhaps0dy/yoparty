@@ -90,7 +90,7 @@ def yo_group(request, cb_code):
         if g.location_time is None:
             g.location_time = u.location_time
             g.save(update_fields=['location_time'])
-            yoapi.yo_all_in_group(g, link=settings.BASE_URL + reverse('loc_page', kwargs={'group': g.group}))
+            yoapi.yo_all_in_group(g, link=settings.BASE_URL + reverse('loc_page', kwargs={'group': g.name}))
         return HttpResponse()
     except ValueError:
         pass
