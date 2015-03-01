@@ -1,0 +1,4 @@
+#!/bin/bash
+. /opt/monkingme-django/bin/activate
+cd /opt/monkingme-django/yoparty
+python3 manage.py tick_locations
