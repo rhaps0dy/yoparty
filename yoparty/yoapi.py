@@ -55,8 +55,10 @@ def create_group(group_name):
     g.save()
 
 
-def yo_all_in_group(group, lat=None, lng=None):
+def yo_all_in_group(group, lat=None, lng=None, link=None):
     query = {"api_token": group.api_token}
     if lat is not None and lng is not None:
         query['location'] = '%s;%s' % (lat, lng)
+    if link is not None:
+        query['link'] = link
     requests.post("https://api.justyo.co/yoall/", data=query)
