@@ -13,6 +13,13 @@ class YoGroup(m.Model):
     api_token = m.SlugField(max_length=36)
     passcode = m.SlugField(max_length=36, default=random_string)
     cb_code = m.SlugField(max_length=36, default=random_string)
+    location_time = m.DateTimeField(null=True, blank=True)
+    location_type = m.SlugField(max_length=1, choices=(
+        ('M', 'Mean'),
+        ('L', 'Location of first user'),
+        ('U', 'User closer to the mean'),
+    ), default='M')
+
 
     def __str__(self):
         return self.name

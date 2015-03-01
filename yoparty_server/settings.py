@@ -85,3 +85,6 @@ STATIC_URL = '/static/'
 
 YOPARTY_API_TOKEN = '2bc30884-afd9-4c86-add9-b9168e666de3'
 BASE_URL = "http://81.4.122.176:8000"
+
+import datetime
+LOCATION_DELAY_TIME = datetime.timedelta(minutes=5)

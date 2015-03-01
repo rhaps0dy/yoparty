@@ -1,11 +1,11 @@
 from django.conf import settings
-from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 import requests
 import re
 
-from yoparty.models import YoGroup
+from yoparty.models import YoGroup, YoMember
 
 
 GROUP_REGEX = r'^[A-Z0-9]+$'
@@ -42,7 +42,7 @@ def create_group(group_name):
     query = {'new_account_username': g.name,
              'new_account_passcode': g.passcode,
              'api_token': settings.YOPARTY_API_TOKEN,
-             'needs_location': False,
+             'needs_location': "false",
              'description': "Yo, %s" % g.name,
              'callback': settings.BASE_URL + reverse('group_callback', kwargs={'cb_code': g.cb_code})}
     # Returns true if there is not an error, false if there was an error
@@ -55,5 +55,8 @@ def create_group(group_name):
     g.save()
 
 
-def yo_all_in_group(group):
-    requests.post("https://api.justyo.co/yoall/", data={"api_token": group.api_token})
+def yo_all_in_group(group, lat=None, lng=None):
+    query = {"api_token": group.api_token}
+    if lat is not None and lng is not None:
+        query['location'] = '%s;%s' % (lat, lng)
+    requests.post("https://api.justyo.co/yoall/", data=query)
