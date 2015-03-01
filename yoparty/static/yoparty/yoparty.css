@@ -24,7 +24,7 @@ p {
 	text-transform: uppercase;
 }
 
-.in2, .in3, .in4, .im5 .{
+.in2, .in3, .in4, .in5{
 	margin:0 auto;
 	background-color: #3498DB;
 	width:100%;
@@ -38,20 +38,21 @@ p {
 }
 
 .in3{
-	color:#1ABC9C;
+	background-color:#1ABC9C;
 }
 
 .in4{
-	color:#2ECC71;
+	background-color:#2ECC71;
 }
 
 .in5{
-	color:#e74c3c;
+	background-color:#e74c3c;
 }
 
 .active{
     border-style: solid;
     border-color: #3498DB;
+    border-width: 0.2em;
 }
 
 .help{
