@@ -18,6 +18,7 @@ class YoGroup(m.Model):
 class YoMember(m.Model):
     group = m.ForeignKey(YoGroup, related_name='members')
     username = m.CharField(max_length=55)
+    show_help = m.BooleanField(default=True)
     lat = m.IntegerField(null=True, blank=True)
     lng = m.IntegerField(null=True, blank=True)
     location_time = m.DateTimeField(null=True, blank=True)

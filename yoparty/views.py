@@ -22,8 +22,20 @@ def create_or_join_group(request):
     return render(request, "yoparty/create_or_join_group.html")
 
 
-def join_success_page(request, group):
-    return render(request, "yoparty/join_success.html", {'group': group})
+#def join_success_page(request, group):
+#    return render(request, "yoparty/message.html",
+#                  {'title': "Join success!",
+#                   "message": "You have joined group %s." % group})
+
+def help_page(request, group, username):
+    if request.METHOD == "POST":
+        u = get_object_or_404(YoMember, group__name=group, username=username)
+        u.show_help = False
+        u.save(update_fields=['show_help'])
+        return render(request, "yoparty/message.html",
+                      {"title": "Help disabled.",
+                       "message": "You will no longer receive the help page."})
+    return render(request, "yoparty/help_page.html")
 
 
 def yo_register(request):
@@ -43,7 +55,7 @@ def yo_group(request, cb_code):
     if created:
         u.save()
         yoapi.send_yo(u.username, api_token=g.api_token,
-                      link=settings.BASE_URL + reverse('join_success', kwargs={'group': g.name}))
+                      link=settings.BASE_URL + reverse('help_page',kwargs={'group': g.name, 'username': u.username}))
         return HttpResponse()
     if "location" in request.GET:
         print("location")

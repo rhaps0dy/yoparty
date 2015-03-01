@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Yo, here's a tip.</title>
+	<link rel="stylesheet" href="{% static 'yoparty/yoparty.css' %}" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+{% if group %}
+<p>You have joined group {{ group }}.</p>
+{% endif %}
+<p>Tap once to send &quot;Yo&quot; to all subscribers.</p>
+<p>Tap twice to send your location and a &quot;Yo&quot; to all subscribers. If they reply with their locations, the
+	group will send you the closest location to all of you for you to meet up.</p>
+<p>Send a link &quot;Yo&quot; to unsubscribe from the group. Send a regular &quot;Yo&quot; to subscribe again.</p>
+<form method="POST">
+	{% csrf_token %}
+	<input type="submit" value="Okay, don't show this again."/>
+</form>
+</body>
+</html>

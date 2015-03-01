@@ -3,11 +3,11 @@
 {% load staticfiles %}
 <head lang="en">
 	<meta charset="UTF-8">
-	<title>Join success</title>
+	<title>{{ title }}</title>
 	<link rel="stylesheet" href="{% static 'yoparty/yoparty.css' %}" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<p>You have joined group {{ group }}.</p>
+<p>{{ message }}</p>
 </body>
 </html>
