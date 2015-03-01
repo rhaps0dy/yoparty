@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
+from django.utils import timezone
 
 from yoparty import yoapi
 from yoparty.models import YoGroup, YoMember
@@ -52,7 +53,14 @@ def yo_group(request, cb_code):
         yoapi.send_yo(u.username, api_token=g.api_token,
                       link=settings.BASE_URL + reverse('help_page', kwargs={'group': g.name, 'username': u.username}))
         return HttpResponse()
-    if "location" in request.GET:
-        print("location")
+    try:
+        u.lat, u.lng = [float(l) for l in request.GET["location"]]
+        u.location_time = timezone.now()
+        u.save(update_fields=['lat', 'lng', 'location_time'])
+        return HttpResponse()
+    except ValueError:
+        pass
+    except KeyError:
+        pass
     yoapi.yo_all_in_group(g)
     return HttpResponse()
