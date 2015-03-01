@@ -34,16 +34,21 @@ def help_page(request, group, username):
     return render(request, "yoparty/help_page.html")
 
 def config_page(request, group, username):
+    u = get_object_or_404(YoMember, group__name=group, username=username)
+    g = u.group
+    data = {"group": group, "is_admin": u.is_admin}
+    if u.is_admin:
+        data["group_list"] = []
+        for user in g.members:
+            if user != u:
+                data["group_list"].append(user)
     if request.method == "POST":
         command = request.POST["command"]
         if command == "deleteUser":
-            u = get_object_or_404(YoMember, group__name=group, username=username)
             u.delete()
             return render(request, "yoparty/message.html",
                           {"title": "Exit group success",
                            "message":"You have deleted your subscription to group %s" % group})
-        g = get_object_or_404(YoGroup, name=group)
-        data = {"group": group}
         if command == "mean":
             g.location_type = 'M'
             data['active_mean'] = True
@@ -53,11 +58,17 @@ def config_page(request, group, username):
         elif command == "userMean":
             g.location_type = 'U'
             data['active_userMean'] = True
+        elif command.startsWith("kick_") and u.is_admin:
+            tokick = get_object_or_404(YoMember, username=command[5:], group=g)
+            tokick.delete()
+            data["group_list"] = []
+            for user in g.members:
+                if user != u:
+                    data["group_list"].append(user)
+            return render(request, "yoparty/config.html", data)
         g.save(update_fields=['location_type'])
         return render(request, "yoparty/config.html", data)
 
-    data = {"group": group}
-    g = get_object_or_404(YoGroup, name=group)
     if g.location_type == 'M':
         data['active_mean'] = True
     elif g.location_type == 'L':
@@ -87,6 +98,8 @@ def yo_group(request, cb_code):
     g = get_object_or_404(YoGroup, cb_code=cb_code)
     u, created = YoMember.objects.get_or_create(group=g, username=request.GET["username"])
     if created:
+        if g.members.count() == 0:
+            u.is_admin = True
         u.save()
         yoapi.send_yo(u.username, api_token=g.api_token,
                       link=settings.BASE_URL + reverse('help_page', kwargs={'group': g.name, 'username': u.username}))

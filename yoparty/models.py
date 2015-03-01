@@ -32,6 +32,7 @@ class YoMember(m.Model):
     lat = m.FloatField(null=True, blank=True)
     lng = m.FloatField(null=True, blank=True)
     location_time = m.DateTimeField(null=True, blank=True)
+    is_admin = m.BooleanField(default=False)
 
     def __str__(self):
         return self.username + ' of ' + self.group.__str__()
