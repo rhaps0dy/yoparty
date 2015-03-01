@@ -14,11 +14,30 @@
 <button id="userLoc" class="{% if active_userLoc %}active {% endif %}in4">First user to send location</button>
 <button id="userMean" class="{% if active_userMean %}active {% endif %}in3">User closest to mean</button>
 <p class="message">&nbsp;</p>
+
+{% if not admin %}
 <button id="deleteUser" class="{% if active_deleteUser %}active {% endif %}in5">EXIT GROUP</button>
+
+{% else %}
+	{% for user in group_list %}
+		<div class="stripes">
+			<button onclick="pe('kick_{{ user }}')" class="kickUsers in5"> KICK {{ user }}</button>
+		</div>
+	{% endfor %}
+{% endif %}
+
 <form id="form" method="POST">
 	{% csrf_token %}
 	<input id="command-id" name="command" type="hidden"/>
 </form>
+
 </body>
 <script src="{% static 'yoparty/config.js' %}"></script>
+<script>
+	
+	function pe(kuser){
+		document.getElementById("comand-id").value = kuser;
+		document.getElementById("form").submit();
+	}
+</script>
 </html>
