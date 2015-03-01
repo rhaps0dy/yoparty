@@ -3,19 +3,22 @@
 {% load staticfiles %}
 <head lang="en">
 	<meta charset="UTF-8">
-	<title>Create or join a Yo Party group</title>
+	<title>Create a Yo Party group</title>
 	<link rel="stylesheet" href="{% static 'yoparty/yoparty.css' %}" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
 </head>
 <body>
+<p>Yo, create your group:</p>
+{% if error %}	
 <p>Error: {{ error }}</p>
+{% endif %}
 {% if created %}
 <p>You have successfully joined to or created this group!</p>
 {% endif %}
 <form method="POST">
 	{% csrf_token %}
-	<input type="text" name="group"/>
-	<input type="submit"/>
+	<input class="in1" type="text" name="group" placeholder="Group name"/>
+	<input class="in2" type="submit"/>
 </form>
 </body>
 </html>

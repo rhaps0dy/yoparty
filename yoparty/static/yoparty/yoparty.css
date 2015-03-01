@@ -2,10 +2,37 @@
 body{
 	margin:0; 
 	padding:0; 
-	font-size:89px; 
 	font-family: 'Montserrat', sans-serif;
 	color:#FFFFFF;
 	text-align: center;
-	text-transform: capitalize;
 	background-color:#9B59B6;
+}
+
+p {
+	font-size:42px; 
+}
+
+.in1{
+	width:100%;
+	padding:10px;
+	background-color: #8E44AD;
+	border:none;
+	font-size:42px;
+	font-family: 'Montserrat', sans-serif;
+	color:#FFFFFF;
+	text-align: center; 
+	text-transform: uppercase;
+}
+
+.in2{
+	margin:0 auto;
+	background-color: #3498DB;
+	width:100%;
+	padding:10px;
+	border:none;
+	font-size:42px;
+	font-family: 'Montserrat', sans-serif;
+	color:#FFFFFF;
+	text-align: center; 
+	text-transform: uppercase;
 }
