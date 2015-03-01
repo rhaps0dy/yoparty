@@ -22,11 +22,6 @@ def create_or_join_group(request):
     return render(request, "yoparty/create_or_join_group.html")
 
 
-#def join_success_page(request, group):
-#    return render(request, "yoparty/message.html",
-#                  {'title': "Join success!",
-#                   "message": "You have joined group %s." % group})
-
 def help_page(request, group, username):
     if request.METHOD == "POST":
         u = get_object_or_404(YoMember, group__name=group, username=username)
