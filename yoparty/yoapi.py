@@ -42,7 +42,7 @@ def create_group(group_name):
     query = {'new_account_username': g.name,
              'new_account_passcode': g.passcode,
              'api_token': settings.YOPARTY_API_TOKEN,
-             'needs_location': True,
+             'needs_location': False,
              'description': "Yo, %s" % g.name,
              'callback': settings.BASE_URL + reverse('group_callback', kwargs={'cb_code': g.cb_code})}
     # Returns true if there is not an error, false if there was an error
