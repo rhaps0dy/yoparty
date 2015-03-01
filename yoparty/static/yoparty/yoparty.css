@@ -24,7 +24,7 @@ p {
 	text-transform: uppercase;
 }
 
-.in2{
+.in2, .in3, .in4, .im5 .{
 	margin:0 auto;
 	background-color: #3498DB;
 	width:100%;
@@ -35,6 +35,23 @@ p {
 	color:#FFFFFF;
 	text-align: center; 
 	text-transform: uppercase;
+}
+
+.in3{
+	color:#1ABC9C;
+}
+
+.in4{
+	color:#2ECC71;
+}
+
+.in5{
+	color:#e74c3c;
+}
+
+.active{
+    border-style: solid;
+    border-color: #3498DB;
 }
 
 .help{

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Yo, configure!</title>
+	<link rel="stylesheet" href="{% static 'yoparty/yoparty.css' %}" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+</head>
+<script language="Javascript">
+	Point_calc = "";
+	var eid = document.getElementById;
+
+	eid("mean").onclick = function(event) {
+		eid("command").value = "mean";
+		eid("form").submit();
+	}
+
+	eid("userLoc").onclick = function(event) {
+		eid("command").value = "userLoc";
+		eid("form").submit();
+	}
+
+	eid("userMean").onclick = function(event) {
+		eid("command").value = "userMean";
+		
+		eid("form").submit();
+	}
+	eid("deleteUser").onclick = function(event) {
+		eid("command").value = "deleteUser";
+		eid("form").submit();
+	}
+</script>
+<body>
+
+<p class="config">{{ group }} Group Settings</p>
+<p class="config">Meeting point calculation</p>
+<button id="mean" class="{% if mean_active %}active{% endif %} in3">Mean</button>
+<button id="userLoc" class="{% if userLoc_active %}active{% endif %} in4">First user to send location</button>
+<button id="userMean" class="{% if userMean_active %}active{% endif %} in3">Mean user</button>
+<button id="deleteUser" class="{% if deleteUser %}active{% endif %} in5">EXIT GROUP</button>
+<form id="form" method="POST">
+	{% csrf_token %}
+	<input id="command" type="hidden"/> 
+</form>
+</body>
+</html>
