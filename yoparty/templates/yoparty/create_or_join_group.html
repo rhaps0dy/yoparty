@@ -8,18 +8,20 @@
 	<link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-<p>Yo, create your group:</p>
-{% if error %}	
-<p>Error: {{ error }}</p>
-{% endif %}
 {% if group %}
 <p>You have successfully created the group {{ group }}.</p>
-{% endif %}
+<p>&quot;Yo&quot; it to join.</p>
+{% else %}
+<p>Yo, create your group:</p>
+	{% if error %}
+<p>Error: {{ error }}</p>
+	{% endif %}
 <form id="group" method="POST">
 	{% csrf_token %}
 	<input class="in1" type="text" name="group" placeholder="Group name"/>
 	<input class="in2" type="submit"/>
 </form>
+{% endif %}
 </body>
 <script src="{% static 'yoparty/yoparty.js' %}"></script>
 </html>
