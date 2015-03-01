@@ -39,9 +39,10 @@ def config_page(request, group, username):
     data = {"group": group, "is_admin": u.is_admin}
     if u.is_admin:
         data["group_list"] = []
-        for user in g.members:
+        return HttpResponse(str(type(g.members.all())))
+        for user in g.members.all():
             if user != u:
-                data["group_list"].append(user)
+                data["group_list"].append(user.username)
     if request.method == "POST":
         command = request.POST["command"]
         if command == "deleteUser":
@@ -62,7 +63,7 @@ def config_page(request, group, username):
             tokick = get_object_or_404(YoMember, username=command[5:], group=g)
             tokick.delete()
             data["group_list"] = []
-            for user in g.members:
+            for user in g.members.all():
                 if user != u:
                     data["group_list"].append(user)
             return render(request, "yoparty/config.html", data)
@@ -98,9 +99,10 @@ def yo_group(request, cb_code):
     g = get_object_or_404(YoGroup, cb_code=cb_code)
     u, created = YoMember.objects.get_or_create(group=g, username=request.GET["username"])
     if created:
-        if g.members.count() == 0:
+        # The first member is the user. get_or_create saves.
+        if g.members.count() == 1:
             u.is_admin = True
-        u.save()
+            u.save(update_fields=['is_admin'])
         yoapi.send_yo(u.username, api_token=g.api_token,
                       link=settings.BASE_URL + reverse('help_page', kwargs={'group': g.name, 'username': u.username}))
         return HttpResponse()
