@@ -54,7 +54,7 @@ def yo_group(request, cb_code):
                       link=settings.BASE_URL + reverse('help_page', kwargs={'group': g.name, 'username': u.username}))
         return HttpResponse()
     try:
-        u.lat, u.lng = [float(l) for l in request.GET["location"]]
+        u.lat, u.lng = [float(l) for l in request.GET["location"].split(";")]
         u.location_time = timezone.now()
         u.save(update_fields=['lat', 'lng', 'location_time'])
         return HttpResponse()
