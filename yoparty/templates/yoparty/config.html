@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>{{ group }} group settings</title>
+	<link rel="stylesheet" href="{% static 'yoparty/yoparty.css' %}" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<p class="message">Meeting point calculation</p>
+<button id="mean" class="{% if active_mean %}active {% endif %}in3">Mean</button>
+<button id="userLoc" class="{% if active_userLoc %}active {% endif %}in4">First user to send location</button>
+<button id="userMean" class="{% if active_userMean %}active {% endif %}in3">User closest to mean</button>
+<p class="message">&nbsp;</p>
+<button id="deleteUser" class="{% if active_deleteUser %}active {% endif %}in5">EXIT GROUP</button>
+<form id="form" method="POST">
+	{% csrf_token %}
+	<input id="command" type="hidden"/> 
+</form>
+</body>
+<script src="{% static 'yoparty/config.js' %}"></script>
+</html>
