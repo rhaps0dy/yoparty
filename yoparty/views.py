@@ -8,6 +8,9 @@ from django.utils import timezone
 from yoparty import yoapi
 from yoparty.models import YoGroup, YoMember
 
+from django_future import schedule_job
+import datetime
+
 
 def create_or_join_group(request):
     """Website to create a yoparty group"""
@@ -57,6 +60,9 @@ def yo_group(request, cb_code):
         u.lat, u.lng = [float(l) for l in request.GET["location"].split(";")]
         u.location_time = timezone.now()
         u.save(update_fields=['lat', 'lng', 'location_time'])
+        if g.location_time is None:
+            g.location_time = u.location_time
+            g.save(update_fields=['location_time'])
         return HttpResponse()
     except ValueError:
         pass
