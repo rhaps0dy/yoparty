@@ -76,7 +76,7 @@ def yo_register(request):
 
 
 def loc_page(request, group):
-    return render(request, "yoparty/messages.html", {'title': 'Yo, location.',
+    return render(request, "yoparty/message.html", {'title': 'Yo, location.',
                   'message': 'Somebody sent location in %s. Send your location to meet up with them!' % group})
 
 
