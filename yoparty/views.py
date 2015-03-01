@@ -43,7 +43,7 @@ def config_page(request, group, username):
                           {"title": "Exit group success",
                            "message":"You have deleted your subscription to group %s" % group})
         g = get_object_or_404(YoGroup, name=group)
-        data = {}
+        data = {"group": group}
         if command == "mean":
             g.location_type = 'M'
             data['active_mean'] = True
@@ -67,6 +67,10 @@ def yo_register(request):
     return HttpResponse()
 
 
+def loc_page(request, group):
+    return render(request, "yoparty/loc_page.html", {'group': group})
+
+
 def yo_group(request, cb_code):
     """Callback url for yo sent to any group. This receives yo's and locations, and sends back yo's and locations."""
     if request.method != "GET" or "username" not in request.GET:
@@ -86,6 +90,7 @@ def yo_group(request, cb_code):
         if g.location_time is None:
             g.location_time = u.location_time
             g.save(update_fields=['location_time'])
+            yoapi.yo_all_in_group(g, link=settings.BASE_URL + reverse('loc_page', kwargs={'group': g.group}))
         return HttpResponse()
     except ValueError:
         pass
