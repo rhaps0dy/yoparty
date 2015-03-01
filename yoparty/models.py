@@ -14,6 +14,9 @@ class YoGroup(m.Model):
     passcode = m.SlugField(max_length=36, default=random_string)
     cb_code = m.SlugField(max_length=36, default=random_string)
 
+    def __str__(self):
+        return self.name
+
 
 class YoMember(m.Model):
     group = m.ForeignKey(YoGroup, related_name='members')
@@ -22,3 +25,10 @@ class YoMember(m.Model):
     lat = m.FloatField(null=True, blank=True)
     lng = m.FloatField(null=True, blank=True)
     location_time = m.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.username + ' of ' + self.group.__str__()
+
+from django.contrib import admin
+admin.site.register(YoGroup)
+admin.site.register(YoMember)
