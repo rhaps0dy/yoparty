@@ -30,7 +30,7 @@ class Command(BaseCommand):
                     distrec = 9999999
                     for m in members:
                         dist = (mlat-m.lat)**2 + (mlng-m.lng)**2
-                        if  dist < distrec:
+                        if dist < distrec:
                             distrec = dist
                             mlat, mlng = m.lat, m.lng
 
