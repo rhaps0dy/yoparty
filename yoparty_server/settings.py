@@ -15,8 +15,11 @@ STATIC_ROOT = '/opt/monkingme-django/static'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'yoparty',
+        'USER': 'django',
+        'PASSWORD': 'monkingme',
+        'HOST': ''
     }
 }
 
@@ -84,7 +87,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 YOPARTY_API_TOKEN = '2bc30884-afd9-4c86-add9-b9168e666de3'
-BASE_URL = "http://81.4.122.176:8000"
+BASE_URL = "http://81.4.122.176"
 
 import datetime
-LOCATION_DELAY_TIME = datetime.timedelta(minutes=5)
+LOCATION_DELAY_TIME = datetime.timedelta(minutes=3)
