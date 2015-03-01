@@ -58,11 +58,11 @@ def config_page(request, group, username):
 
     data = {"group": group}
     g = get_object_or_404(YoGroup, name=group)
-    if g.location_time == 'M':
+    if g.location_type == 'M':
         data['active_mean'] = True
-    elif g.location_time == 'L':
+    elif g.location_type == 'L':
         data['active_userLoc'] = True
-    elif g.location_time == 'U':
+    elif g.location_type == 'U':
         data['active_userMean'] = True
     return render(request, "yoparty/config.html", data)
 
