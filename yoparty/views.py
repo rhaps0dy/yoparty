@@ -34,7 +34,7 @@ def help_page(request, group, username):
     return render(request, "yoparty/help_page.html")
 
 def config_page(request, group, username):
-    return render(request, "yoparty/config.html", {"active_mean": True})
+    return render(request, "yoparty/config.html", {"active_mean": True, "group": group})
 
 
 def yo_register(request):
