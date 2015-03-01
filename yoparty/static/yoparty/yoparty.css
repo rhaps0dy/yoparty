@@ -62,3 +62,11 @@ p {
 .message{
 	font-size:4em;
 }
+
+div.stripes div:nth-of-type(even){
+    color: #1ABC9C;
+}
+
+div.stripes div:nth-of-type(odd){
+    color: #2ECC71;
+}
