@@ -27,7 +27,7 @@ class YoMember(m.Model):
     location_time = m.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.username + ' of ' + self.group
+        return self.username + ' of ' + self.group.__str__()
 
 from django.contrib import admin
 admin.site.register(YoGroup)
