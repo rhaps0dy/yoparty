@@ -8,9 +8,6 @@ from django.utils import timezone
 from yoparty import yoapi
 from yoparty.models import YoGroup, YoMember
 
-from django_future import schedule_job
-import datetime
-
 
 def create_or_join_group(request):
     """Website to create a yoparty group"""
