@@ -34,6 +34,28 @@ def help_page(request, group, username):
     return render(request, "yoparty/help_page.html")
 
 def config_page(request, group, username):
+    if request.method == "POST":
+        command = request.POST["command"]
+        if command == "deleteUser":
+            u = get_object_or_404(YoMember, group__name=group, username=username)
+            u.delete()
+            return render(request, "yoparty/message.html",
+                          {"title": "Exit group success",
+                           "message":"You have deleted your subscription to group %s" % group})
+        g = get_object_or_404(YoGroup, name=group)
+        data = {}
+        if command == "mean":
+            g.location_type = 'M'
+            data['active_mean'] = True
+        elif command == "userLoc":
+            g.location_type = 'L'
+            data['active_userLoc'] = True
+        elif command == "userMean":
+            g.location_type = 'U'
+            data['active_userMean'] = True
+        g.save(update_fields=['location_type'])
+        return render(request, "yoparty/config.html", data)
+
     return render(request, "yoparty/config.html", {"active_mean": True, "group": group})
 
 
