@@ -37,7 +37,7 @@ _group_regex_compiled = re.compile(GROUP_REGEX)
 def create_group(group_name):
     """Creates a group. Raises GroupCreationError if the creation was not successful."""
     if not _group_regex_compiled.match(group_name):
-        raise GroupCreationError("Group name must be all caps and only letters or numbers.")
+        raise GroupCreationError("Group name must be only letters and numbers.")
     g = YoGroup(name=group_name)
     query = {'new_account_username': g.name,
              'new_account_passcode': g.passcode,

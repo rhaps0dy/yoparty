@@ -9,7 +9,7 @@ body{
 }
 
 p {
-	font-size:42px; 
+	font-size:6em; 
 }
 
 .in1{
@@ -17,7 +17,7 @@ p {
 	padding:10px;
 	background-color: #8E44AD;
 	border:none;
-	font-size:42px;
+	font-size:6em;
 	font-family: 'Montserrat', sans-serif;
 	color:#FFFFFF;
 	text-align: center; 
@@ -30,7 +30,7 @@ p {
 	width:100%;
 	padding:10px;
 	border:none;
-	font-size:42px;
+	font-size:6em;
 	font-family: 'Montserrat', sans-serif;
 	color:#FFFFFF;
 	text-align: center; 
