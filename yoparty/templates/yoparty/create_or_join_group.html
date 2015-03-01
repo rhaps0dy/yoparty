@@ -12,8 +12,8 @@
 {% if error %}	
 <p>Error: {{ error }}</p>
 {% endif %}
-{% if created %}
-<p>You have successfully created this group.</p>
+{% if group %}
+<p>You have successfully created the group {{ group }}.</p>
 {% endif %}
 <form id="group" method="POST">
 	{% csrf_token %}
