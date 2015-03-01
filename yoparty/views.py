@@ -57,7 +57,7 @@ def config_page(request, group, username):
         return render(request, "yoparty/config.html", data)
 
     data = {"group": group}
-    g = get_object_or_404(YoGroup, group__name=group)
+    g = get_object_or_404(YoGroup, name=group)
     if g.location_time == 'M':
         data['active_mean'] = True
     elif g.location_time == 'L':
