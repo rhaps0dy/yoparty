@@ -43,7 +43,7 @@ def create_group(group_name):
              'new_account_passcode': g.passcode,
              'api_token': settings.YOPARTY_API_TOKEN,
              'needs_location': "false",
-             'description': "Yo, %s" % g.name,
+             'description': "Group %s" % g.name,
              'callback': settings.BASE_URL + reverse('group_callback', kwargs={'cb_code': g.cb_code})}
     # Returns true if there is not an error, false if there was an error
     resp = requests.post('https://api.justyo.co/accounts/', data=query).json()
@@ -55,8 +55,10 @@ def create_group(group_name):
     g.save()
 
 
-def yo_all_in_group(group, lat=None, lng=None):
+def yo_all_in_group(group, lat=None, lng=None, link=None):
     query = {"api_token": group.api_token}
     if lat is not None and lng is not None:
         query['location'] = '%s;%s' % (lat, lng)
+    if link is not None:
+        query['link'] = link
     requests.post("https://api.justyo.co/yoall/", data=query)
