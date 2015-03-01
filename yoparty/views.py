@@ -56,7 +56,15 @@ def config_page(request, group, username):
         g.save(update_fields=['location_type'])
         return render(request, "yoparty/config.html", data)
 
-    return render(request, "yoparty/config.html", {"active_mean": True, "group": group})
+    data = {"group": group}
+    g = get_object_or_404(YoGroup, group__name=group)
+    if g.location_time == 'M':
+        data['active_mean'] = True
+    elif g.location_time == 'L':
+        data['active_userLoc'] = True
+    elif g.location_time == 'U':
+        data['active_userMean'] = True
+    return render(request, "yoparty/config.html", data)
 
 
 def yo_register(request):
@@ -68,7 +76,8 @@ def yo_register(request):
 
 
 def loc_page(request, group):
-    return render(request, "yoparty/loc_page.html", {'group': group})
+    return render(request, "yoparty/messages.html", {'title': 'Yo, location.',
+                  'message': 'Somebody sent location in %s. Send your location to meet up with them!' % group})
 
 
 def yo_group(request, cb_code):
