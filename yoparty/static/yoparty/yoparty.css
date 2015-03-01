@@ -36,3 +36,11 @@ p {
 	text-align: center; 
 	text-transform: uppercase;
 }
+
+.help{
+	font-size:2em;
+}
+
+.message{
+	font-size:2em;
+}

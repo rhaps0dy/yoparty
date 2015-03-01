@@ -9,13 +9,13 @@
 </head>
 <body>
 {% if group %}
-<p>You have joined group {{ group }}.</p>
+<p class="help">You have joined group {{ group }}.</p>
 {% endif %}
-<p>Tap once to send &quot;Yo&quot; to all subscribers.</p>
+<p class="help">Tap once to send &quot;Yo&quot; to all subscribers.</p>
 
-<p>Tap twice to send your location and a &quot;Yo&quot; to all subscribers. If they reply with their locations within 5
+<p class="help">Tap twice to send your location and a &quot;Yo&quot; to all subscribers. If they reply with their locations within 5
 	minutes, the group will send you the closest location to all of you for you to meet up.</p>
-<p>Send a link &quot;Yo&quot; to unsubscribe from the group. Send a regular &quot;Yo&quot; to subscribe again.</p>
+<p class="help">Send a link &quot;Yo&quot; to unsubscribe from the group. Send a regular &quot;Yo&quot; to subscribe again.</p>
 <form method="POST">
 	{% csrf_token %}
 	<input type="submit" value="Okay, don't show this again."/>
